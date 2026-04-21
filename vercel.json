@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/redash-api/:path*",
+      "destination": "https://redash.humand.co/:path*"
+    },
+    {
+      "source": "/humand-api/:path*",
+      "destination": "https://api-prod.humand.co/:path*"
+    },
+    {
+      "source": "/gemini-api/:path*",
+      "destination": "https://generativelanguage.googleapis.com/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
