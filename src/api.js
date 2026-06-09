@@ -1,19 +1,7 @@
-const REDASH_API_KEY = 'Pbs779L6IJcjJ8pIcZTg7W1ozTkbaScCsZX2h5nm';
-const REDASH_URL = '/redash-api/api/queries/15023/results';
-
-const HUMAND_API_KEY = 'Basic NTg3Nzg0ODoyOVljWHNSZmZEeGZKRzQ0YnE4bWdtbmpJYzVjbVR0Tg==';
-const HUMAND_URL = '/humand-api/public/api/v1/posts';
-
-const GEMINI_API_KEY = 'AIzaSyBXoOyTWWGFePmgCzUKEdAZnwvEzdjcDpk';
-const GEMINI_URL = `/gemini-api/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
-
 export async function fetchPosts() {
-  const response = await fetch(REDASH_URL, {
+  const response = await fetch('/api/redash', {
     method: 'POST',
-    headers: {
-      'Authorization': `Key ${REDASH_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({}),
   });
 
@@ -44,7 +32,7 @@ Format the response as a complete, ready-to-publish digest post in plain text. U
 
 ${postList}`;
 
-  const response = await fetch(GEMINI_URL, {
+  const response = await fetch('/api/gemini', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -76,12 +64,9 @@ export async function publishPost(body) {
     .map((line) => `<p>${linkify(line)}</p>`)
     .join('');
 
-  const response = await fetch(HUMAND_URL, {
+  const response = await fetch('/api/humand', {
     method: 'POST',
-    headers: {
-      'Authorization': HUMAND_API_KEY,
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       body,
       bodyHtml,
